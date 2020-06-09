@@ -5,6 +5,19 @@ const Ticker = require('./ticker');
  * @class
  */
 class Driver {
+  constructor(config) {
+    this.requires = {
+      secret: false,
+    };
+
+    if (config) {
+      this.requires = {
+        ...this.requires,
+        ...config.requires,
+      };
+    }
+  }
+
   /**
    * Drivers must include a fetchTickers method.
    *

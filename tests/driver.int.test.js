@@ -16,6 +16,11 @@ const driversDir = path.join(__dirname, '..', 'drivers');
 const getTickers = async (driverName) => {
   const driver = new drivers[driverName]();
 
+  // Set a secret to avoid an error from being thrown while testing
+  if (driver.requires.secret) {
+    driver.secret = 'maskedSecret';
+  }
+
   await nock.back(`${driverName}.json`.toLowerCase());
 
   return driver.fetchTickers(true);
